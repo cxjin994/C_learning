@@ -36,6 +36,16 @@ Node* insertTail(Node* head, int data){
     return head;
 }
 
+//打印链表
+void printList(Node* head){
+    Node* current=head;
+    while(current != NULL){
+    	printf("%d ", current->data);
+	current=current->next;
+    }
+    printf("\n");
+}
+
 int main(){
     Node* first=creatNode(10);
     printf("%d\n", first->data);    
