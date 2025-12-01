@@ -14,6 +14,15 @@ Node* creatNode(int data){
     return newNode;
 }
 
+//在头部插入节点
+Node* insertHead(Node* head; int data){
+    Node* newNode=creatNode(data)
+    if(head==NULL) return newNode;
+    Node* current=head;
+    head=newNode;
+    newNode->next=current;
+}
+
 //在尾部插入节点
 Node* insertTail(Node* head; int data){
     Node* newNode=creatNode(data);
