@@ -58,16 +58,17 @@ int main(){
     printf("退出选择：0\n");
     scanf("%d", &ch);
     
-    while(ch==0){
+    while(ch!=0){
     	switch(ch){
-	    case 1: printf("输入想插入的数"); scanf("%d", &data); insertHead(data); break;
-	    case 2: printf("输入想插入的数"); scanf("%d", &data); insertTail(data); break;
+	    case 1: printf("输入想插入的数"); scanf("%d", &data); head=insertHead(head,data); break;
+	    case 2: printf("输入想插入的数"); scanf("%d", &data); head=insertTail(head,data); break;
 	    case 0: break;
 	    default: printf("Error\n");
 	}
 	scanf("%d", &ch);
     }
-    printfList(head);
+    printList(head);
+    
     
     return 0;
 }
