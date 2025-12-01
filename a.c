@@ -6,6 +6,7 @@ typedef struct Node{
     struct Node* next;
 }Node;
 
+//创建新的节点
 Node* creatNode(int data){
     Node* newNode=(Node*)malloc(sizeof(Node));
     newNode->data=data;
@@ -13,6 +14,7 @@ Node* creatNode(int data){
     return newNode;
 }
 
+//在尾部插入节点
 Node* insertTail(Node* head; int data){
     Node* newNode=creatNode(data);
     if(head==NULL) return newNode;
