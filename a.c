@@ -38,16 +38,36 @@ Node* insertTail(Node* head, int data){
 
 //打印链表
 void printList(Node* head){
-    Node* current=head;
-    while(current != NULL){
-    	printf("%d ", current->data);
-	current=current->next;
+    if(head==NULL){
+    	printf("无链表");
+    }else{Node* current=head;
+      while(current != NULL){
+      	  printf("%d ", current->data);
+      	  current=current->next;
+      }
     }
     printf("\n");
+    
 }
 
 int main(){
-    Node* first=creatNode(10);
-    printf("%d\n", first->data);    
+    int ch, data;
+    Node* head=NULL;
+    printf("在头部插入节点选择：1\n");
+    printf("在尾部插入节点选择：2\n");
+    printf("退出选择：0\n");
+    scanf("%d", &ch);
+    
+    while(ch==0){
+    	switch(ch){
+	    case 1: printf("输入想插入的数"); scanf("%d", &data); insertHead(data); break;
+	    case 2: printf("输入想插入的数"); scanf("%d", &data); insertTail(data); break;
+	    case 0: break;
+	    default: printf("Error\n");
+	}
+	scanf("%d", &ch);
+    }
+    printfList(head);
+    
     return 0;
 }
