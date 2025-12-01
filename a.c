@@ -14,7 +14,14 @@ Node* creatNode(int data){
 }
 
 Node* insertTail(Node* head; int data){
-
+    Node* newNode=creatNode(data);
+    if(head==NULL) return newNode;
+    Node* current=head;
+    while(current->next != NULL){
+    	current=current->next;
+    }
+    current->next=newNode;
+    return head;
 }
 
 int main(){
