@@ -1,30 +1,47 @@
-# 编译生成的可执行文件
-*.exe
-*.out
-*.o
-*.a
-*.so
-*.dll
+# 忽略所有文件（默认全部忽略）
+*
 
-# 调试文件
-*.dSYM/
-*.su
-*.idb
-*.pdb
+# 但保留以下类型的源文件（白名单）
+!*.c
+!*.h
+!*.cpp
+!*.hpp
 
-# IDE 配置文件
+# 保留文档和配置文件
+!*.md
+!*.txt
+!*.json
+!*.yml
+!*.yaml
+!*.gitignore
+!README*
+!LICENSE*
+
+# 保留目录结构（这样Git可以进入子目录）
+!*/
+
+# 但忽略目录中的所有编译文件（黑名单）
+/*.exe
+/*.out
+/*.o
+/*.a
+/*.so
+/*.dll
+
+# 忽略任何没有扩展名的可执行文件（你的 a, c测试 等）
+/[^.]*
+!/.*   # 但保留 .gitignore 这样的隐藏文件
+
+# 忽略IDE和系统文件
 .vscode/
 .idea/
 *.swp
 *.swo
-
-# 系统文件
 .DS_Store
 Thumbs.db
 
-# 日志文件
-*.log
-
-# 临时文件
-*.tmp
-*.temp
+# 忽略编译目录
+build/
+dist/
+bin/
+obj/
