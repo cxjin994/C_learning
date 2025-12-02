@@ -36,6 +36,27 @@ Node* insertTail(Node* head, int data){
     return head;
 }
 
+//删除指定值节点
+void deleteNode(Node* head, int data){
+    Node* current=head;
+    if(head->data == data){
+        Node* temp=head;
+        head=head->next;
+        free(temp);
+    }
+    while(current->next->data != data){
+    	current=current->next;
+    }
+    if(current->next->next != NULL){
+    	Node* temp=current->next->next;
+    	free(current->next);
+    	current->next=temp;
+    }else{
+    	free(current->next);
+	current->next=NULL;
+    }
+}
+
 //查找节点
 void findNode(Node* head, int data){
     int count=1;
@@ -53,14 +74,17 @@ void findNode(Node* head, int data){
 
 //打印链表
 void printList(Node* head){
+    int count=0;
     if(head==NULL){
     	printf("无链表");
     }else{Node* current=head;
       while(current != NULL){
       	  printf("%d ", current->data);
       	  current=current->next;
+	  count++;
       }
     }
+    printf("一共有%d个节点", count);
     printf("\n");
     
 }
@@ -82,6 +106,7 @@ int main(){
     printf("在头部插入节点选择：1\n");
     printf("在尾部插入节点选择：2\n");
     printf("查找节点选择：3\n");
+    printf("删除节点选择：4\n");
     printf("退出选择：0\n");
     scanf("%d", &ch);
     
@@ -90,15 +115,15 @@ int main(){
 	    case 1: printf("输入想插入的数"); scanf("%d", &data); head=insertHead(head,data); break;
 	    case 2: printf("输入想插入的数"); scanf("%d", &data); head=insertTail(head,data); break;
 	    case 3: printf("输入想查找的数"); scanf("%d", &data); findNode(head,data); break;
+	    case 4: printf("输入想删除的数"); scanf("%d", &data); deleteNode(head,data); break;
 	    case 0: break;
 	    default: printf("Error\n"); break;
 	}
 	printf("继续选择");
 	scanf("%d", &ch);
     }
+    
     printList(head);
-    
-    
     return 0;
 }
 
