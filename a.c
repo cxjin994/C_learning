@@ -36,6 +36,21 @@ Node* insertTail(Node* head, int data){
     return head;
 }
 
+//查找节点
+void findNode(Node* head, int data){
+    int count=1;
+    Node* current=head;
+    while(current->data != data){
+    	count++;
+	current=current->next;
+    }
+    if(current->data == data){
+    	printf("%d在第%d个节点\n", data, count);
+    }else{
+    	printf("没有找到相应的节点\n");
+    }
+}
+
 //打印链表
 void printList(Node* head){
     if(head==NULL){
@@ -50,11 +65,23 @@ void printList(Node* head){
     
 }
 
+//释放空间
+void freeList(Node* head){
+    Node* current=head;
+    while(current != NULL){
+    	Node* temp=current;	
+	current=current->next;
+	free(temp);
+    }
+    head=NULL;
+}
+
 int main(){
     int ch, data;
     Node* head=NULL;
     printf("在头部插入节点选择：1\n");
     printf("在尾部插入节点选择：2\n");
+    printf("查找节点选择：3\n");
     printf("退出选择：0\n");
     scanf("%d", &ch);
     
@@ -62,9 +89,11 @@ int main(){
     	switch(ch){
 	    case 1: printf("输入想插入的数"); scanf("%d", &data); head=insertHead(head,data); break;
 	    case 2: printf("输入想插入的数"); scanf("%d", &data); head=insertTail(head,data); break;
+	    case 3: printf("输入想查找的数"); scanf("%d", &data); findNode(head,data); break;
 	    case 0: break;
-	    default: printf("Error\n");
+	    default: printf("Error\n"); break;
 	}
+	printf("继续选择");
 	scanf("%d", &ch);
     }
     printList(head);
@@ -72,4 +101,4 @@ int main(){
     
     return 0;
 }
-TODOfree函数;
+
