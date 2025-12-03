@@ -74,7 +74,7 @@ void findNode(Node* head, int data){
     }
 }
 
-//反转链表
+
 
 //打印链表
 void printList(Node* head){
@@ -111,7 +111,6 @@ int main(){
     printf("在尾部插入节点选择：2\n");
     printf("查找节点选择：3\n");
     printf("删除节点选择：4\n");
-    printf("反转链表选择；5\n");
     printf("退出选择：0\n");
     scanf("%d", &ch);
     
@@ -121,7 +120,6 @@ int main(){
 	    case 2: printf("输入想插入的数"); scanf("%d", &data); head=insertTail(head,data); break;
 	    case 3: printf("输入想查找的数"); scanf("%d", &data); findNode(head,data); break;
 	    case 4: printf("输入想删除的数"); scanf("%d", &data); head=deleteNode(head,data); break;
-	    case 5: head=reverseList(head);
 	    case 0: break;
 	    default: printf("Error\n"); break;
 	}
