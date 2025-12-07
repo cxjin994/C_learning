@@ -1,47 +1,20 @@
-# 忽略所有文件（默认全部忽略）
-*
+# 编译输出文件
+*.o
+*.out
+*.exe
+*.a
+*.so
+*.dll
 
-# 但保留以下类型的源文件（白名单）
-!*.c
-!*.h
-!*.cpp
-!*.hpp
+# 自动生成的可执行文件（没有扩展名的）
+a
+test
+*_test
 
-# 保留文档和配置文件
-!*.md
-!*.txt
-!*.json
-!*.yml
-!*.yaml
-!*.gitignore
-!README*
-!LICENSE*
-
-# 保留目录结构（这样Git可以进入子目录）
-!*/
-
-# 但忽略目录中的所有编译文件（黑名单）
-/*.exe
-/*.out
-/*.o
-/*.a
-/*.so
-/*.dll
-
-# 忽略任何没有扩展名的可执行文件（你的 a, c测试 等）
-/[^.]*
-!/.*   # 但保留 .gitignore 这样的隐藏文件
-
-# 忽略IDE和系统文件
+# IDE 和系统文件（可选）
 .vscode/
 .idea/
 *.swp
 *.swo
 .DS_Store
 Thumbs.db
-
-# 忽略编译目录
-build/
-dist/
-bin/
-obj/
