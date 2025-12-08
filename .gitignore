@@ -1,31 +1,30 @@
-# 忽略编译输出
-*.o
-*.out
-*.exe
-*.a
-*.so
-*.dll
+# 首先忽略所有文件和目录
+*
 
-# 忽略无扩展名的可执行文件
-/[^/]*$
-!*/  # 保留目录
+# 然后排除（不忽略）以下类型：
 
-# 忽略 IDE 文件
-.vscode/
-.idea/
-*.swp
-*.swo
+# 1. 所有 .c 源文件（递归匹配）
+!*.c
 
-# 忽略系统文件
-.DS_Store
-Thumbs.db
+# 2. 所有目录（这样 Git 可以进入目录找到 .c 文件）
+!*/
 
-# 忽略其他项目目录
-cpp_learning/
-HTML_learning/
-Linux_learning/
-Minecraft_Mod_Dev/
+# 3. .gitignore 文件本身（必须排除）
+!.gitignore
 
-# 忽略敏感文件
-.git-credentials
-.lesshst
+# 4. README 和相关文档文件（可选）
+!README*
+!*.md
+!*.txt
+
+# 5. 其他源文件类型（根据你的项目需要）
+# !*.h
+# !*.hpp
+# !*.cpp
+
+# 6. Git 相关目录（必须保留）
+!.git/
+
+# 7. 特定的项目配置文件（如果需要）
+# !Makefile
+# !CMakeLists.txt
