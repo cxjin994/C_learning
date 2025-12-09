@@ -34,23 +34,50 @@ Node* insertTail(Node* head, int data){
     return head;
 }
 
+//根据数查找节点
+void findNode(Node* head, int data){
+    if(head == NULL){
+    	printf("没有这个链表");
+    }else{
+    	Node* current=head;
+	Node* temp=NULL;
+	int i=1, count=0;
+	while(current->next !=NULL || temp != head){
+	    if(current->data == data){
+	    	printf("%d在第%d节点 ", data, i);
+            count++;
+	    }
+	    i++;
+	    if(current->next == NULL) break;
+	    current=current->next;
+	    if(temp == head) break;
+	    temp=current;
+	}
+    if(count == 0) printf("没有这个数据");
+    }
+    printf("\n");
+}
+
 //打印链表
 void printList(Node* head){
     if(head ==NULL){
         printf("无链表");
     }else{
         Node* current=head;
-    Node* temp=NULL;
-    int i=1;
-    while(temp != head || current->next != NULL){
-    	if(head == NULL) break;
-	printf("第%d个节点是%d ", i, current->data);
-	if(current->next == NULL) break;
-	current=current->next;
-	if(temp == head) break;
-	temp=current;
-	i++;
-    }
+    	Node* temp=NULL;
+    	int i=1;
+    	
+	while(temp != head || current->next != NULL){
+    	    if(head == NULL) break;
+	    printf("第%d个节点是%d ", i, current->data);
+	   
+	    if(current->next == NULL) break;
+	    current=current->next;
+	   
+	    if(temp == head) break;
+	    temp=current;
+	    i++;
+    	}
     }
     
     printf("\n");
@@ -61,6 +88,7 @@ int main(){
     Node* head=NULL;
     printf("在头部插入节点选择：1\n");
     printf("在尾部插入节点选择：2\n");
+    printf("查找节点选择：3\n");
     
     printf("退出选择：0\n");
     scanf("%d", &ch);
@@ -69,7 +97,8 @@ int main(){
     	switch(ch){
 	    case 1: printf("输入想插入的数"); scanf("%d", &data); head=insertHead(head,data); break;
 	    case 2: printf("输入想插入的数"); scanf("%d", &data); head=insertTail(head,data); break;
-	    case 0: break;
+	    case 3: printf("输入查找的数"); scanf("%d", &data); findNode(head, data); break;
+        case 0: break;
 	    default: printf("Error\n"); break;
 	}
 	printf("继续选择");
