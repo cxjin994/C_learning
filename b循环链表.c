@@ -17,9 +17,20 @@ Node* creatNode(int data){
 //在头部插入节点
 Node* insertHead(Node* head, int data){
     Node* newNode=creatNode(data);
-    if(head == NULL) return newNode;
-    newNode->next=head; head->last=newNode;
-    return newNode;
+    if(head == NULL){
+    	return newNode;
+    
+    }else{
+   	Node* current=head;
+	while(current->next != head || current->next != NULL){
+	    if(current->next == head) break;
+	    if(current->next == NULL) break;
+	    current=current->next;
+	}
+	current->next=newNode; newNode->last=current;
+	newNode->next=head; head->last=newNode;
+	return newNode;
+    }
 }
 
 //在尾部插入节点
@@ -43,14 +54,14 @@ void findNode(Node* head, int data){
 	Node* temp=NULL;
 	int i=1, count=0;
 	while(current->next !=NULL || temp != head){
+	    if(current->next == NULL) break;
+	    if(temp == head) break;
 	    if(current->data == data){
 	    	printf("%d在第%d节点 ", data, i);
             count++;
 	    }
 	    i++;
-	    if(current->next == NULL) break;
 	    current=current->next;
-	    if(temp == head) break;
 	    temp=current;
 	}
     if(count == 0) printf("没有这个数据");
@@ -69,12 +80,10 @@ void printList(Node* head){
     	
 	while(temp != head || current->next != NULL){
     	    if(head == NULL) break;
-	    printf("第%d个节点是%d ", i, current->data);
-	   
 	    if(current->next == NULL) break;
-	    current=current->next;
-	   
 	    if(temp == head) break;
+	    printf("第%d个节点是%d ", i, current->data);
+	    current=current->next;
 	    temp=current;
 	    i++;
     	}
