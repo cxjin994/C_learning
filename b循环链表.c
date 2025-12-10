@@ -79,10 +79,9 @@ void printList(Node* head){
     	int i=1;
     	
 	while(temp != head || current->next != NULL){
-    	    if(head == NULL) break;
-	    if(current->next == NULL) break;
 	    if(temp == head) break;
 	    printf("第%d个节点是%d ", i, current->data);
+	    if(current->next == NULL) break;
 	    current=current->next;
 	    temp=current;
 	    i++;
