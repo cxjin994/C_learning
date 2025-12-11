@@ -54,12 +54,12 @@ void findNode(Node* head, int data){
 	Node* temp=NULL;
 	int i=1, count=0;
 	while(current->next !=NULL || temp != head){
-	    if(current->next == NULL) break;
 	    if(temp == head) break;
 	    if(current->data == data){
 	    	printf("%d在第%d节点 ", data, i);
-            count++;
+            	count++;
 	    }
+	    if(current->next == NULL) break;
 	    i++;
 	    current=current->next;
 	    temp=current;
