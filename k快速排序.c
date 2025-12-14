@@ -15,4 +15,15 @@ int partition(int arr[], int low, int high){
 	    swap(&arr[i], &arr[k]);
 	}
     }
+    swap(&arr[i+1], &arr[high]);
+    return i+1;
+}
+//快速排序
+void quickSort(int arr[], int low, int high){
+    if(low<high){
+        int pi=partition(arr, low, high);
+
+	quickSort(arr, low, pi-1);
+	quickSort(arr, pi+1, high);
+    }
 }
