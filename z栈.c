@@ -72,45 +72,28 @@ void printStack(Stack* s){
     	printf("%d ", s->data[i]);
     }
 }
-//测试
+
 int main(){
+    int value, ch;
     Stack s;
     initStack(&s);
+    printf("入栈选择：1\n");
+    printf("出栈选择：2\n");
+    printf("查看栈顶选择：3\n");
+    printf("退出选择：0\n");
+    scanf("%d", &ch);
 
-    //测试入栈
-    printf("入栈测试:\n");
-    for(int i=1; i<=6; i++){
-    	if(push(&s, i*10)){
-	    printf("入栈成功:%d\n", i*10);
-	    printStack(&s);
-	}else{
-	    printf("入栈失败，栈已满\n");
+    while(ch != 0){
+    	switch(ch){
+	    case 1: printf("输入想入栈的数"); scanf("%d",&value); push(&s,value); break;
+	    case 2: pop(&s,&value); printf("出栈元素为%d\n",value); break;
+	    case 3: peek(&s,&value); printf("栈顶元素为%d\n",value); break;
+	    case 0: break; 
+	    default: printf("Error\n"); break;
 	}
+	printf("继续你的选择 ");
+	scanf("%d",&ch);
     }
-    printf("\n");
-    
-    //测试查看栈顶
-    printf("查看栈顶测试\n");
-    int topValue;
-    if (peek(&s, &topValue)) {
-        printf("当前栈顶: %d\n", topValue);
-    }
-
-    // 测试出栈
-    printf("\n出栈测试：\n");
-    int poppedValue;
-    while (pop(&s, &poppedValue)) {
-        printf("出栈: %d\n", poppedValue);
-        printStack(&s);
-    }
-
-    // 测试空栈操作
-    printf("\n空栈测试：\n");
-    if (!pop(&s, &poppedValue)) {
-        printf("出栈失败：栈已空\n");
-    }
-    if (!peek(&s, &topValue)) {
-        printf("查看栈顶失败：栈已空\n");
-    }
+    printStack(&s);
     return 0;
 }
