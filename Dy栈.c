@@ -101,6 +101,7 @@ bool pop(DynamicStack* stack, int* value){
 
     if(isEmpty(stack)){
     printf("栈为空\n");
+    *value=0;
     return false;
     }
 
@@ -128,7 +129,8 @@ bool pop(DynamicStack* stack, int* value){
 bool peek(DynamicStack* stack, int* value){
     if(stack==NULL){
         printf("没有这个栈\n");
-	return false;
+        *value=0;
+	    return false;
     }
 
     *value=stack->data[stack->top];
@@ -171,13 +173,30 @@ void printStackInfo(DynamicStack* stack){
 }
 
 int main(){
-    DynamicStack* stack = creatStack(5);
-    for(int i=1; i<=6; i++){
-    	push(stack,i*10);
-    }
-    for(int i=1; i<=2; i++){
-    	int* value;
-	pop(stack,value);
+    DynamicStack* stack;
+    printf("请输入初始容量:");
+    int initialCapacity;
+    scanf("%d",&initialCapacity);
+    stack=creatStack(initialCapacity);
+    int value, ch;
+    printf("入栈选择：1\n");
+    printf("出栈选择：2\n");
+    printf("查看栈顶选择：3\n");
+    printf("查看栈信息选择选择：4\n");
+    printf("退出选择：0\n");
+    scanf("%d", &ch);
+
+    while(ch != 0){
+    	switch(ch){
+	    case 1: printf("输入想入栈的数"); scanf("%d",&value); push(stack,value); break;
+	    case 2: pop(stack,&value); printf("出栈元素为%d\n",value); break;
+	    case 3: peek(stack,&value); printf("栈顶元素为%d\n",value); break;
+        case 4: printStackInfo(stack); break;
+	    case 0: break; 
+	    default: printf("Error\n"); break;
+	}
+	printf("继续你的选择 ");
+	scanf("%d",&ch);
     }
     printStackInfo(stack);
     return 0;    
