@@ -20,6 +20,8 @@ TreeNode* creatNode(int data){
     Node->data=data;
     Node->left=NULL;
     Node->right=NULL;
+    Node->lTag=0;
+    Node->rTag=0;
     return Node;
 }
 
@@ -58,6 +60,23 @@ void preorder(TreeNode* root){
     printf("%d ",root->data);
     preorder(root->left);
     preorder(root->right);
+}
+
+//中序线索化
+void inorderThread(TreeNode* p, TreeNode** prev){
+    if(p == NULL) return;
+
+    inorderThread(p->left,prev);
+    if(p->left == NULL){
+    	p->lTag=1;
+	p->left=*prev;
+    }
+    if(*prev != NULL && (*prev)->right == NULL){
+    	(*prev)->right=p;
+	(*prev)->rTag=1;
+    }
+    *prev=p;
+    inorderThread(p->right,prev);
 }
 
 int main(){
