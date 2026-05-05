@@ -64,40 +64,57 @@ unsigned int hash(int key,int size){
     return key%size;
 }
 
-//插入数据
-void insert_HT(HashTable* ht,int key,int value){
-    Node* tempNode=ht->buckets[hash(key,ht->size)];
-
-    tempNode=insert_N(tempNode,key,value);
-}
-
 //查找数据
 int find(HashTable* ht,int key){
     Node* temp=ht->buckets[hash(key,ht->size)];
     while(temp){
-    	if(temp->key == key) return temp->value;
-	temp=temp->next;
+        if(temp->key == key) return temp->value;
+        temp=temp->next;
     }
     return -1;
 }
 
-//删除数据
-void delete(HashTable* ht,int key){
-    Node* temp=ht->buckets[hash(key,ht->size)];
-    if(temp->key == key){
-    	ht->buckets[hash(key,ht->size)]=temp->next;
-	printf("已删除key=%d value=%d\n",temp->key,temp->value);
-	free(temp);
-    }
+//插入数据
+void insert_HT(HashTable* ht,int key,int value){
+    int index=hash(key,ht->size);
 
-    Node* current=temp;
-    temp=temp->next;
+    if(find(ht,key) != -1){
+    	Node* temp=ht->buckets[index];
+    	while(temp){
+            if(temp->key == key){
+		temp->value=value;
+		break;
+	    }
+       	    temp=temp->next;
+    	}
+    }else{
+    	Node* tempNode=ht->buckets[index];
+    	ht->buckets[index]=insert_N(tempNode,key,value);
+    	ht->count++;
+    }
+}
+
+//删除数据
+void delete_Key(HashTable* ht,int key){
+    int index=hash(key,ht->size);
+    Node* temp=ht->buckets[index];
+    if(!temp) return;
+    
+    Node* pre=NULL;
     while(temp){
     	if(temp->key == key){
-	    current->next=temp->next;
+	    if(pre == NULL){
+	    	ht->buckets[index]=temp->next;
+	    }else{
+	    	pre->next=temp->next;
+	    }
+	
+	    ht->count--;
 	    printf("已删除key=%d value=%d\n",temp->key,temp->value);
 	    free(temp);
+	    return;
 	}
+	pre=temp;
 	temp=temp->next;
     }
 }
@@ -109,6 +126,8 @@ void free_HT(HashTable* ht){
 	    Node* temp=ht->buckets[i];
 	    ht->buckets[i]=temp->next;
 	    free(temp);
-	}
+	    }
     }
+    free(ht->buckets);
+    free(ht);
 }
