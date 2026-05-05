@@ -131,3 +131,54 @@ void free_HT(HashTable* ht){
     free(ht->buckets);
     free(ht);
 }
+
+int main(){
+    HashTable* ht;
+    printf("创建哈希表\n");
+    int a;
+    scanf("%d",&a);
+    ht=creat_HT(a);
+    printf("插入数据选择：1\n");
+    printf("查找数据选择：2\n");
+    printf("删除数据选择：3\n");
+    printf("退出选择：0\n");
+    int choice;
+    scanf("%d",&choice);
+    while(choice){
+        switch(choice){
+            case 1:{
+                int key,value;
+                printf("请输入key和value\n");
+                scanf("%d%d",&key,&value);
+                insert_HT(ht,key,value);
+                printf("此时表内有%d个元素\n",ht->count);
+                break;
+            }
+            case 2:{
+                int key;
+                printf("请输入key\n");
+                scanf("%d",&key);
+                int value=find(ht,key);
+                if(value != -1){
+                    printf("找到key=%d value=%d\n",key,value);
+                }else{
+                    printf("未找到key=%d\n",key);
+                }
+                break;
+            }
+            case 3:{
+                int key;
+                printf("请输入key\n");
+                scanf("%d",&key);
+                delete_Key(ht,key);
+                printf("此时表内有%d个元素\n",ht->count);
+                break;
+            }
+            default: break;
+        }
+        printf("继续你的选择\n");
+        scanf("%d",&choice);
+    }
+    free_HT(ht);
+    return 0;
+}
