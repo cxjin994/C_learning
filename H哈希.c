@@ -13,6 +13,8 @@ typedef struct{
     int count;
 }HashTable;
 
+void free_HT(HashTable* ht);
+
 //创建链表节点
 Node* creat_N(int key,int value){
     Node* newNode=(Node*)malloc(sizeof(Node));
@@ -76,6 +78,20 @@ int find(HashTable* ht,int key){
 
 //插入数据
 void insert_HT(HashTable* ht,int key,int value){
+    if((double)ht->count/ht->size > 0.75){
+    	HashTable* newht=creat_HT(2*ht->size);
+	for(int i=0; i<ht->size; i++){
+	    Node* current=ht->buckets[i];
+	    while(current){
+	    	insert_HT(newht,current->key,current->value);
+		current=current->next;
+	    }
+	}
+	free_HT(ht);
+	ht=newht;
+    }
+	
+	
     int index=hash(key,ht->size);
 
     if(find(ht,key) != -1){
