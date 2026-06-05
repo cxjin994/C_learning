@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct
 {
@@ -9,6 +10,53 @@ typedef struct
     int edge_num;   // 边个数
 } Mat_Grph;
 
+typedef struct  Node{
+    int data;
+    struct Node* next;
+}Node;
+
+typedef struct{
+    Node* head;
+    int size;
+    Node* end;
+}queue;
+
+// 初始化队列
+void initQueue(queue *q)
+{
+    q->head = NULL;
+    q->size = 0;
+    q->end = NULL;
+}
+
+// 创建节点
+Node* createNode(int data){
+    Node* newNode=(Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+//入队
+void insertQueue(queue *q, int data){
+    Node* newNode=createNode(data);
+    if(q->head == NULL){
+        q->head = newNode;
+        q->end = newNode;
+    }else q->end->next = newNode;
+    q->end = newNode;
+    (q->size)++;
+}
+
+//出队
+void deleteQueue(queue *q){
+    Node* temp=q->head;
+    q->head=q->head->next;
+    free(temp);
+    (q->size)--;
+}
+
+//初始化图
 void initGraph(Mat_Grph *G)
 {
     printf("有向图/无向图？ 1/0");
@@ -63,12 +111,38 @@ void DFS(Mat_Grph *G, int index, int *visited)
     }
 }
 
+void BFS(Mat_Grph *G, int index, int *visited){
+    memset(visited, 0, G->vertex_num*sizeof(int));
+    if (index < 0 || index > G->vertex_num - 1){
+        index = 0;
+    }
+    queue *q = (queue *)malloc(sizeof(queue));
+    initQueue(q);
+    insertQueue(q, index);
+    visited[index]=1;
+    while(q->size > 0){
+    	for(int i=0; i < G->vertex_num; i++){
+	    if(G->arc[q->head->data][i] > 0){
+		if(visited[i]==0){
+		    insertQueue(q,i);
+		    visited[i]=1;
+		}
+	    }
+	}
+	printf("%d ",q->head->data);
+    printf("\n");
+	deleteQueue(q);
+    }    
+}
+
+
 int main()
 {
     Mat_Grph *MG = (Mat_Grph *)malloc(sizeof(Mat_Grph));
     initGraph(MG);
     int *visited = (int *)calloc(MG->vertex_num, sizeof(int));
     DFS(MG, 0, visited);
+    BFS(MG, 0, visited);
     free(MG);
     free(visited);
     return 0;
