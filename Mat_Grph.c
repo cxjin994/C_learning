@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MAX 1000000
+
 typedef struct
 {
     int **arc;
@@ -130,19 +132,63 @@ void BFS(Mat_Grph *G, int index, int *visited){
 	    }
 	}
 	printf("%d ",q->head->data);
-    printf("\n");
+        printf("\n");
 	deleteQueue(q);
     }    
 }
 
+void prim(Mat_Grph *G, int index){
+    if(index<0 || index>=G->vertex_num) index=0;
+    
+    int weight[G->vertex_num];
+    int vex_index[G->vertex_num];
+    int min=MAX;
+    int k;
+
+    for(int i=0; i < G->vertex_num; i++){
+    	weight[i]=G->arc[index][i];
+        if(G->arc[index][i] == 0) weight[i]=MAX;
+	    if(weight[i] != 0 && weight[i] < min){
+	    min=weight[i];
+	    k=i;
+	}
+    }
+
+    vex_index[index]=k;
+    weight[k]=0;
+    weight[index] = 0;
+    printf("%d--%d\n",index,vex_index[index]);
+    
+    for(int num=1; num < G->vertex_num - 1; num++){
+	    int now=k;
+        min=MAX;
+    	for(int i=0; i < G->vertex_num; i++){
+	    if(weight[i]==0) continue;
+		
+	    if(weight[i] > G->arc[now][i] && G->arc[now][i] != 0){
+	    	weight[i]=G->arc[now][i];
+		    vex_index[i]=now;
+	    }
+
+	    if(weight[i]<min){
+	    	min=weight[i];
+		    k=i;
+	    }
+	}
+    weight[k]=0;
+	printf("%d--%d\n",vex_index[k],k);
+    }
+
+}
 
 int main()
 {
     Mat_Grph *MG = (Mat_Grph *)malloc(sizeof(Mat_Grph));
     initGraph(MG);
-    int *visited = (int *)calloc(MG->vertex_num, sizeof(int));
+    int* visited = (int*)calloc(MG->vertex_num, sizeof(int));
     DFS(MG, 0, visited);
     BFS(MG, 0, visited);
+    prim(MG, 0);
     free(MG);
     free(visited);
     return 0;
